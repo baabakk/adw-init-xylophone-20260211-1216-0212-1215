@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "interfaces": [
+    {
+      "name": "Web Audio API",
+      "type": "api",
+      "description": "External dependency: Web Audio API",
+      "contract": "Integration point — risk: medium"
+    },
+    {
+      "name": "Modern browser JavaScript engine (ES6+)",
+      "type": "database",
+      "description": "External dependency: Modern browser JavaScript engine (ES6+)",
+      "contract": "Integration point — risk: low"
+    },
+    {
+      "name": "Browser autoplay policies",
+      "type": "database",
+      "description": "External dependency: Browser autoplay policies",
+      "contract": "Integration point — risk: medium"
+    },
+    {
+      "name": "Touch Events API",
+      "type": "api",
+      "description": "External dependency: Touch Events API",
+      "contract": "Integration point — risk: low"
+    },
+    {
+      "name": "Keyboard Events API",
+      "type": "api",
+      "description": "External dependency: Keyboard Events API",
+      "contract": "Integration point — risk: low"
+    }
+  ],
+  "dataContracts": [],
+  "scalability": {
+    "expectedLoad": "Not specified in contract",
+    "bottlenecks": [
+      "Audio playback latency must be minimal (perceived as instant, <50ms)"
+    ],
+    "mitigations": []
+  },
+  "securityBaseline": {
+    "authMethod": "TBD — not specified in contract",
+    "dataClassification": "TBD — not specified in contract",
+    "threatVectors": [],
+    "mitigations": []
+  },
+  "adrs": [],
+  "metadata": {
+    "derivedFrom": "tpm-contract.json",
+    "confidenceMap": {
+      "interfaces": "inferred",
+      "dataContracts": "assumed",
+      "scalability": "assumed",
+      "securityBaseline": "assumed",
+      "adrs": "assumed"
+    },
+    "gaps": [
+      "No LLM available — guardrails built from contract data only. ADRs and data contracts not generated."
+    ]
+  }
+}

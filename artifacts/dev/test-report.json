@@ -1,0 +1,33 @@
+{
+  "initiativeId": "init-xylophone-20260211-1216",
+  "workspaceDir": "/data/artifacts/init-xylophone-20260211-1216/workspace",
+  "testedAt": "2026-02-12T12:15:34.755Z",
+  "overallStatus": "passed",
+  "validationResults": [
+    {
+      "step": "npm-install",
+      "passed": true,
+      "output": "\nadded 88 packages in 4s\n",
+      "errorOutput": ""
+    },
+    {
+      "step": "npm-build",
+      "passed": true,
+      "output": "\n> adw-init-xylophone-20260211-1216@0.1.0 build\n> tsc -p tsconfig.json\n\n",
+      "errorOutput": ""
+    },
+    {
+      "step": "typescript-check",
+      "passed": true,
+      "output": "",
+      "errorOutput": ""
+    },
+    {
+      "step": "html-references:index.html",
+      "passed": true,
+      "output": "All references valid",
+      "errorOutput": ""
+    }
+  ],
+  "bugReports": []
+}
