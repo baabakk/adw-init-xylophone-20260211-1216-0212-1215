@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "summary": "Build a standalone browser-based xylophone app that runs locally from a single HTML file with no backend. Users interact with 11 visually distinct bars via mouse/touch or keyboard (A-S-D-F-G row) to trigger musical notes generated in real-time using the Web Audio API with percussive decay, supporting overlapping playback and instant visual feedback.",
+  "assumptions": [
+    {
+      "id": "A-01",
+      "text": "The 11-note xylophone uses a standard diatonic scale (C-D-E-F-G-A-B-C-D-E-F or similar) since specific note frequencies were not provided"
+    },
+    {
+      "id": "A-02",
+      "text": "Users will initiate audio via a gesture (click/tap to start) to comply with browser autoplay policies, as no explicit initialization flow was specified"
+    },
+    {
+      "id": "A-03",
+      "text": "The keyboard mapping uses 11 consecutive keys starting with A-S-D-F-G-H-J-K-L-semicolon-apostrophe based on standard QWERTY layout"
+    },
+    {
+      "id": "A-04",
+      "text": "Optional features (responsive layout, themes, volume control, sequence recording) are deferred to post-MVP based on prioritization as 'could' requirements"
+    },
+    {
+      "id": "A-05",
+      "text": "Target browsers are modern versions supporting Web Audio API (Chrome 34+, Firefox 25+, Safari 14.1+, Edge 79+) with graceful degradation for unsupported browsers"
+    }
+  ],
+  "requirementsInterpreted": [
+    {
+      "id": "R-01",
+      "text": "Display 11 visually distinct xylophone bars in the interface with clear differentiation"
+    },
+    {
+      "id": "R-02",
+      "text": "Show instruction text beneath the xylophone explaining how to interact via click/tap or keyboard keys"
+    },
+    {
+      "id": "R-03",
+      "text": "Trigger unique musical notes on mouse click, touch tap, or keyboard press for each of the 11 bars"
+    },
+    {
+      "id": "R-04",
+      "text": "Generate all audio using Web Audio API oscillators with gain envelopes for percussive decay, without loading external audio files"
+    },
+    {
+      "id": "R-05",
+      "text": "Support overlapping note playback allowing multiple bars to sound simultaneously without cutting off previous notes"
+    },
+    {
+      "id": "R-06",
+      "text": "Provide brief visual feedback (color change, scale, or shadow effect) when a bar is activated"
+    },
+    {
+      "id": "R-07",
+      "text": "Deliver as a single HTML file containing all HTML, CSS, and JavaScript with zero external dependencies or network requests"
+    },
+    {
+      "id": "R-08",
+      "text": "Achieve audio playback latency under 50ms from user interaction to sound output"
+    }
+  ],
+  "outOfScope": [
+    {
+      "id": "OS-01",
+      "text": "Backend server implementation, cloud hosting, or any server-side processing"
+    },
+    {
+      "id": "OS-02",
+      "text": "Mobile native applications for iOS or Android"
+    },
+    {
+      "id": "OS-03",
+      "text": "Advanced music composition features like sheet music notation, MIDI export, or multi-track recording"
+    },
+    {
+      "id": "OS-04",
+      "text": "Multi-user collaboration, sharing capabilities, or social features"
+    },
+    {
+      "id": "OS-05",
+      "text": "Integration with external music libraries, DAWs, or third-party audio services"
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "OQ-01",
+      "text": "What specific musical scale and note frequencies should the 11 bars represent (e.g., C major diatonic, pentatonic, chromatic)?"
+    },
+    {
+      "id": "OQ-02",
+      "text": "What is the expected timeline for MVP delivery and any subsequent iterations for optional features?"
+    },
+    {
+      "id": "OQ-03",
+      "text": "Who will validate that the xylophone tones sound 'realistic and pleasant' (AC-15) before release?"
+    }
+  ],
+  "riskFlags": [
+    {
+      "id": "RF-01",
+      "text": "Browser autoplay policies may block audio initialization without explicit user gesture, requiring a 'Start' or 'Play' button"
+    },
+    {
+      "id": "RF-02",
+      "text": "Web Audio API implementation varies across browsers, potentially affecting tone quality and requiring cross-browser testing"
+    },
+    {
+      "id": "RF-03",
+      "text": "No objective criteria defined for 'realistic xylophone tone' quality, making acceptance subjective without stakeholder validation process"
+    },
+    {
+      "id": "RF-04",
+      "text": "Rapid simultaneous interactions could overload audio context or exceed polyphony limits, requiring throttling or limit enforcement"
+    }
+  ],
+  "needsClarification": true
+}

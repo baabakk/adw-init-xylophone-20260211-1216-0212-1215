@@ -1,0 +1,383 @@
+{
+  "version": "1.0",
+  "initiativeCore": {
+    "problemStatement": "Build a browser-based interactive xylophone app that runs locally by simply opening an HTML file with no backend required. The interface should display an 11-note diatonic xylophone with visually distinct bars, and beneath it show a short instruction inviting users to click or tap the bars or press the keyboard row starting with A, S, D, F, G and continuing across the row to explore the sounds. Each bar must trigger a musical note generated directly in the browser using the Web Audio API with an oscillator and gain envelope (no external audio files), producing instant playback, low latency, overlapping notes, and a short percussive decay to resemble a xylophone tone. Provide brief visual feedback when a bar is activated, keep the implementation strictly in HTML, CSS, and JavaScript with clear modular code and minimal dependencies, and optionally support responsive layout, simple theme customization, volume control, or basic sequence recording.",
+    "goals": [
+      "Deliver a standalone, zero-dependency browser-based xylophone application",
+      "Enable instant musical interaction through mouse/touch and keyboard input",
+      "Generate realistic xylophone tones using Web Audio API without external audio files",
+      "Provide intuitive visual interface with clear user instructions",
+      "Implement musically accurate diatonic scale across 11 notes"
+    ],
+    "nonGoals": [
+      "Backend server implementation or cloud hosting",
+      "Mobile native application development",
+      "Advanced music composition features beyond basic sequence recording",
+      "Multi-user collaboration or sharing capabilities",
+      "Integration with external music libraries or DAWs",
+      "Chromatic scale or alternative tuning systems",
+      "MIDI input/output support"
+    ],
+    "businessImpact": "Success delivers an educational/entertainment tool demonstrating Web Audio API capabilities with zero infrastructure cost and instant deployment, providing musically accurate diatonic scale education. Failure results in poor user experience through audio latency, browser compatibility issues, or unintuitive interaction patterns, limiting adoption and educational value.",
+    "stakeholders": "End users (music learners, casual users exploring web audio), developers evaluating Web Audio API patterns, educational institutions seeking browser-based music tools"
+  },
+  "requirements": {
+    "functional": [
+      {
+        "id": "FR-01",
+        "description": "Display 11 visually distinct xylophone bars in the user interface arranged in diatonic scale order",
+        "priority": "must"
+      },
+      {
+        "id": "FR-02",
+        "description": "Display instruction text beneath xylophone inviting users to click/tap bars or press keyboard keys (A, S, D, F, G row)",
+        "priority": "must"
+      },
+      {
+        "id": "FR-03",
+        "description": "Trigger musical note on mouse click or touch interaction with each bar",
+        "priority": "must"
+      },
+      {
+        "id": "FR-04",
+        "description": "Trigger musical note on keyboard press using A, S, D, F, G row keys mapped to 11 bars",
+        "priority": "must"
+      },
+      {
+        "id": "FR-05",
+        "description": "Generate musical notes using Web Audio API oscillator without external audio files",
+        "priority": "must"
+      },
+      {
+        "id": "FR-06",
+        "description": "Implement gain envelope for percussive decay resembling xylophone tone characteristics",
+        "priority": "must"
+      },
+      {
+        "id": "FR-07",
+        "description": "Support overlapping note playback allowing multiple simultaneous sounds",
+        "priority": "must"
+      },
+      {
+        "id": "FR-08",
+        "description": "Provide brief visual feedback when bar is activated (click, tap, or keypress)",
+        "priority": "must"
+      },
+      {
+        "id": "FR-09",
+        "description": "Implement responsive layout adapting to different screen sizes",
+        "priority": "could"
+      },
+      {
+        "id": "FR-10",
+        "description": "Provide simple theme customization options (colors, appearance)",
+        "priority": "could"
+      },
+      {
+        "id": "FR-11",
+        "description": "Implement volume control for audio output",
+        "priority": "could"
+      },
+      {
+        "id": "FR-12",
+        "description": "Support basic sequence recording of played notes",
+        "priority": "could"
+      },
+      {
+        "id": "FR-13",
+        "description": "Map 11 bars to diatonic scale frequencies (C major scale: C4, D4, E4, F4, G4, A4, B4, C5, D5, E5, F5 or equivalent starting note)",
+        "priority": "must"
+      }
+    ],
+    "nonFunctional": [
+      {
+        "id": "NFR-01",
+        "description": "Application must run locally by opening HTML file without backend server",
+        "priority": "must"
+      },
+      {
+        "id": "NFR-02",
+        "description": "Implementation must use only HTML, CSS, and JavaScript with no external dependencies",
+        "priority": "must"
+      },
+      {
+        "id": "NFR-03",
+        "description": "Audio playback latency must be minimal (perceived as instant, <50ms)",
+        "priority": "must"
+      },
+      {
+        "id": "NFR-04",
+        "description": "Code must be modular and clearly structured for maintainability",
+        "priority": "must"
+      },
+      {
+        "id": "NFR-05",
+        "description": "Application must be compatible with modern browsers supporting Web Audio API (Chrome 34+, Firefox 25+, Safari 14.1+, Edge 79+)",
+        "priority": "must"
+      },
+      {
+        "id": "NFR-06",
+        "description": "Touch interactions must work on mobile and tablet devices",
+        "priority": "should"
+      },
+      {
+        "id": "NFR-07",
+        "description": "Visual feedback must render within one frame (16ms at 60fps)",
+        "priority": "should"
+      },
+      {
+        "id": "NFR-08",
+        "description": "File size must remain minimal for instant loading (<100KB total)",
+        "priority": "should"
+      },
+      {
+        "id": "NFR-09",
+        "description": "Note frequencies must be mathematically accurate to standard diatonic tuning (equal temperament)",
+        "priority": "must"
+      }
+    ],
+    "edgeCases": [
+      "User rapidly clicks/taps multiple bars simultaneously creating audio context overload",
+      "User holds down keyboard key causing repeated note triggers",
+      "Browser tab loses focus while notes are playing (audio context suspension)",
+      "User opens file in browser without Web Audio API support (legacy browsers)",
+      "Touch and mouse events fire simultaneously on hybrid devices",
+      "User attempts to play notes before audio context is initialized (autoplay policies)",
+      "Multiple keyboard keys pressed simultaneously exceeding polyphony limits",
+      "Screen size too small to display all 11 bars legibly",
+      "User attempts to record sequence exceeding browser memory limits",
+      "Audio context creation fails due to browser security policies or user permissions",
+      "User expects chromatic scale but receives diatonic scale (educational clarification needed)",
+      "Frequency calculation errors due to floating-point precision in diatonic scale math"
+    ]
+  },
+  "acceptanceCriteria": {
+    "criteria": [
+      {
+        "id": "AC-01",
+        "description": "Opening the HTML file in a modern browser displays 11 distinct xylophone bars without errors",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-02",
+        "description": "Instruction text is visible beneath the xylophone explaining click/tap and keyboard interaction",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-03",
+        "description": "Clicking or tapping each bar produces a unique musical note within 50ms",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-04",
+        "description": "Pressing keys A, S, D, F, G, H, J, K, L, semicolon, apostrophe triggers corresponding bars",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-05",
+        "description": "Audio is generated using Web Audio API with no external audio file requests in network tab",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-06",
+        "description": "Notes exhibit percussive decay characteristic (amplitude envelope drops to zero within 1-2 seconds)",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-07",
+        "description": "Playing multiple bars in quick succession produces overlapping sounds without cutting off previous notes",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-08",
+        "description": "Activated bar shows visual change (color, scale, shadow) for at least 100ms",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-09",
+        "description": "Application functions without internet connection after initial file load",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-10",
+        "description": "No external libraries or CDN dependencies are loaded (verified in network tab)",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-11",
+        "description": "Code is organized into logical functions/modules with clear naming and comments",
+        "testable": true,
+        "priority": "P1"
+      },
+      {
+        "id": "AC-12",
+        "description": "Application displays correctly on screen widths from 320px to 1920px",
+        "testable": true,
+        "priority": "P2"
+      },
+      {
+        "id": "AC-13",
+        "description": "Volume control (if implemented) adjusts audio output level from 0% to 100%",
+        "testable": true,
+        "priority": "P2"
+      },
+      {
+        "id": "AC-14",
+        "description": "Sequence recording (if implemented) captures and replays at least 20 notes accurately",
+        "testable": true,
+        "priority": "P2"
+      },
+      {
+        "id": "AC-15",
+        "description": "Xylophone tones sound realistic and pleasant to users",
+        "testable": false,
+        "priority": "P1"
+      },
+      {
+        "id": "AC-16",
+        "description": "11 bars produce frequencies matching diatonic scale (C major or equivalent) with <1Hz deviation from equal temperament standard",
+        "testable": true,
+        "priority": "P0"
+      },
+      {
+        "id": "AC-17",
+        "description": "Playing bars in sequence (left to right) produces recognizable ascending diatonic scale",
+        "testable": true,
+        "priority": "P0"
+      }
+    ],
+    "measurableOutcomes": [
+      "Audio latency measured at <50ms from interaction to sound",
+      "Visual feedback renders within 16ms (one frame at 60fps)",
+      "Application loads and initializes in <500ms on standard broadband",
+      "Zero network requests after initial HTML file load",
+      "Code complexity metrics: cyclomatic complexity <10 per function",
+      "File size <100KB for complete application",
+      "Browser compatibility verified across Chrome, Firefox, Safari, Edge (latest 2 versions)",
+      "Frequency accuracy: all 11 notes within ±1Hz of equal temperament diatonic scale",
+      "Diatonic scale interval ratios: whole steps (9/8 or 200 cents) and half steps (16/15 or 100 cents) correctly implemented"
+    ]
+  },
+  "risksAndDependencies": {
+    "internalDependencies": [
+      "Clear understanding of Web Audio API oscillator and gain node configuration",
+      "Knowledge of musical note frequencies for 11-note diatonic scale (C major or equivalent)",
+      "Mathematical precision in calculating equal temperament diatonic frequencies",
+      "CSS animation/transition expertise for visual feedback",
+      "Event handling patterns for mouse, touch, and keyboard inputs"
+    ],
+    "externalDependencies": [
+      {
+        "name": "Web Audio API",
+        "type": "api",
+        "risk": "medium"
+      },
+      {
+        "name": "Modern browser JavaScript engine (ES6+)",
+        "type": "infrastructure",
+        "risk": "low"
+      },
+      {
+        "name": "Browser autoplay policies",
+        "type": "infrastructure",
+        "risk": "medium"
+      },
+      {
+        "name": "Touch Events API",
+        "type": "api",
+        "risk": "low"
+      },
+      {
+        "name": "Keyboard Events API",
+        "type": "api",
+        "risk": "low"
+      }
+    ],
+    "riskClassification": {
+      "score": 72,
+      "factors": [
+        "Missing explicit goals, non-goals, and acceptance criteria in original brief",
+        "No defined stakeholders or success metrics",
+        "Undefined timeline and budget constraints",
+        "No explicit dependency mapping or risk assessment",
+        "Ambiguity around optional features prioritization (responsive, themes, volume, recording)",
+        "Browser autoplay policy changes could block audio initialization",
+        "Web Audio API implementation varies across browsers affecting tone quality",
+        "No performance benchmarks specified for audio generation",
+        "Unclear definition of 'realistic xylophone tone' leading to subjective quality assessment",
+        "Diatonic scale specification now confirmed, reducing musical accuracy risk",
+        "Potential floating-point precision errors in frequency calculation for diatonic intervals"
+      ],
+      "mitigations": [
+        "Implement user gesture requirement to initialize audio context (click 'Start' button) to comply with autoplay policies",
+        "Create browser compatibility test matrix for Web Audio API features before development",
+        "Define specific oscillator waveform (sine/triangle) and ADSR envelope parameters for consistent tone",
+        "Establish performance budget: max 10ms for note generation, 16ms for visual feedback",
+        "Prioritize must-have features (FR-01 through FR-08, FR-13) for MVP, defer optional features to post-launch",
+        "Add graceful degradation message for unsupported browsers",
+        "Implement audio context state monitoring to handle tab visibility changes",
+        "Create automated test suite for latency measurement and polyphony limits",
+        "Define stakeholder review checkpoint for tone quality validation",
+        "Use standard equal temperament frequency formula: f = 440 × 2^((n-49)/12) for diatonic notes",
+        "Implement frequency validation tests to ensure <1Hz deviation from standard tuning",
+        "Document diatonic scale choice (C major starting at C4: 261.63Hz, D4: 293.66Hz, E4: 329.63Hz, F4: 349.23Hz, G4: 392.00Hz, A4: 440.00Hz, B4: 493.88Hz, C5: 523.25Hz, D5: 587.33Hz, E5: 659.25Hz, F5: 698.46Hz)",
+        "Add visual labels to bars indicating note names (C, D, E, F, G, A, B, C, D, E, F) for educational clarity"
+      ]
+    }
+  },
+  "deliveryIntent": {
+    "releaseScope": "mvp",
+    "rolloutExpectations": "Single HTML file deliverable for local execution, no deployment infrastructure required. Users download and open file directly in browser. No versioning or update mechanism needed for initial release.",
+    "timelineAssumptions": "Assuming 1-2 week development cycle for MVP (FR-01 through FR-08, FR-13, NFR-01 through NFR-05, NFR-09), with optional features (FR-09 through FR-12) deferred to future iterations based on user feedback.",
+    "constraints": [
+      "Must function as single HTML file with no external dependencies",
+      "Cannot use external audio files or libraries",
+      "Must work offline after initial load",
+      "Limited to Web Audio API capabilities available in target browsers",
+      "No backend or server-side processing allowed",
+      "Must comply with browser autoplay policies requiring user gesture",
+      "Touch event handling complexity on hybrid devices",
+      "Must implement diatonic scale (not chromatic or other tuning systems)",
+      "Frequency calculations must maintain mathematical precision for musical accuracy"
+    ],
+    "budget": "Not specified - assumed minimal cost (developer time only, no infrastructure or licensing costs)"
+  },
+  "metadata": {
+    "confidenceMap": {
+      "initiativeCore": "confirmed",
+      "requirements": "confirmed",
+      "acceptanceCriteria": "confirmed",
+      "risksAndDependencies": "inferred",
+      "deliveryIntent": "assumed"
+    },
+    "gaps": [
+      "No explicit goals or success metrics defined in original brief (partially addressed)",
+      "No stakeholder identification or approval process",
+      "Undefined timeline or delivery milestones",
+      "No budget allocation or resource constraints specified",
+      "No explicit dependency mapping provided",
+      "Unclear prioritization between must-have and optional features",
+      "No performance benchmarks or SLAs defined (partially addressed with diatonic accuracy)",
+      "No accessibility requirements specified (keyboard navigation, screen readers)",
+      "Undefined error handling and fallback behavior",
+      "No monitoring or analytics requirements",
+      "Missing definition of 'realistic xylophone tone' (subjective quality criteria)",
+      "No user testing or validation plan specified",
+      "Unclear ownership and maintenance responsibility post-delivery",
+      "Starting note for diatonic scale not specified (assumed C4 or C major)",
+      "Octave range not explicitly defined (assumed C4-F5 based on 11 notes)",
+      "Visual labeling of note names on bars not specified (recommended for educational value)",
+      "No specification for handling enharmonic equivalents or alternative key signatures"
+    ]
+  }
+}

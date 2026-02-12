@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive browser-based xylophone with Web Audio API">
+    <title>Interactive Xylophone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Xylophone</h1>
+        </header>
+
+        <main>
+            <!-- Xylophone bars container -->
+            <div class="xylophone" id="xylophone">
+                <div class="bar" data-note="0" data-key="a" tabindex="0" role="button" aria-label="Note C">
+                    <span class="key-label">A</span>
+                </div>
+                <div class="bar" data-note="1" data-key="s" tabindex="0" role="button" aria-label="Note D">
+                    <span class="key-label">S</span>
+                </div>
+                <div class="bar" data-note="2" data-key="d" tabindex="0" role="button" aria-label="Note E">
+                    <span class="key-label">D</span>
+                </div>
+                <div class="bar" data-note="3" data-key="f" tabindex="0" role="button" aria-label="Note F">
+                    <span class="key-label">F</span>
+                </div>
+                <div class="bar" data-note="4" data-key="g" tabindex="0" role="button" aria-label="Note G">
+                    <span class="key-label">G</span>
+                </div>
+                <div class="bar" data-note="5" data-key="h" tabindex="0" role="button" aria-label="Note A">
+                    <span class="key-label">H</span>
+                </div>
+                <div class="bar" data-note="6" data-key="j" tabindex="0" role="button" aria-label="Note B">
+                    <span class="key-label">J</span>
+                </div>
+                <div class="bar" data-note="7" data-key="k" tabindex="0" role="button" aria-label="Note C">
+                    <span class="key-label">K</span>
+                </div>
+                <div class="bar" data-note="8" data-key="l" tabindex="0" role="button" aria-label="Note D">
+                    <span class="key-label">L</span>
+                </div>
+                <div class="bar" data-note="9" data-key=";" tabindex="0" role="button" aria-label="Note E">
+                    <span class="key-label">;</span>
+                </div>
+                <div class="bar" data-note="10" data-key="'" tabindex="0" role="button" aria-label="Note F">
+                    <span class="key-label">'</span>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p>Click or tap the bars above, or press the keyboard keys <strong>A, S, D, F, G, H, J, K, L, ; , '</strong> to explore the sounds!</p>
+            </div>
+
+            <!-- Optional controls -->
+            <div class="controls" id="controls">
+                <div class="control-group">
+                    <label for="volume-slider">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z"/>
+                        </svg>
+                        Volume
+                    </label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70" aria-label="Volume control">
+                    <span id="volume-value" class="value-display">70%</span>
+                </div>
+
+                <div class="control-group recording-controls">
+                    <button id="record-btn" class="control-btn" aria-label="Start recording">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <circle cx="10" cy="10" r="6"/>
+                        </svg>
+                        Record
+                    </button>
+                    <button id="play-btn" class="control-btn" disabled aria-label="Play recording">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                        </svg>
+                        Play
+                    </button>
+                    <button id="clear-btn" class="control-btn" disabled aria-label="Clear recording">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        Clear
+                    </button>
+                    <span id="recording-status" class="status-display"></span>
+                </div>
+            </div>
+
+            <!-- Audio context initialization notice -->
+            <div id="audio-notice" class="audio-notice" style="display: none;">
+                <p>Click anywhere to enable audio</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with Web Audio API • No external dependencies • Works offline</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript modules -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>

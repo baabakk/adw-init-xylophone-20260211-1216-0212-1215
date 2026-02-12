@@ -1,0 +1,47 @@
+{
+  "techStack": {
+    "primary": "HTML + CSS + JavaScript",
+    "reasoning": "",
+    "runCommand": "open index.html",
+    "installCommand": "none"
+  },
+  "files": [
+    {
+      "path": "index.html",
+      "description": "Main HTML structure with xylophone bars, instruction text, and optional controls (volume, recording)"
+    },
+    {
+      "path": "styles.css",
+      "description": "Visual styling for xylophone bars, layout, animations, visual feedback, and responsive design"
+    },
+    {
+      "path": "audio-engine.js",
+      "description": "Web Audio API wrapper managing AudioContext, oscillator creation, gain envelopes, and note synthesis"
+    },
+    {
+      "path": "xylophone.js",
+      "description": "Core xylophone logic mapping bars to frequencies, handling note triggering, and managing polyphony"
+    },
+    {
+      "path": "input-handler.js",
+      "description": "Event listeners for mouse clicks, touch events, and keyboard presses with debouncing and hybrid device handling"
+    },
+    {
+      "path": "visual-feedback.js",
+      "description": "Visual feedback system for bar activation animations and state management"
+    },
+    {
+      "path": "controls.js",
+      "description": "Optional volume control and sequence recording/playback functionality"
+    },
+    {
+      "path": "app.js",
+      "description": "Application initialization, module coordination, audio context setup, and autoplay policy handling"
+    },
+    {
+      "path": "README.md",
+      "description": "Documentation covering usage instructions, browser compatibility, technical architecture, and troubleshooting"
+    }
+  ],
+  "architecture": "Single-page browser application using Web Audio API for real-time sound synthesis. Modular JavaScript architecture with separation of concerns: audio engine handles Web Audio API interactions, xylophone module manages note mapping and triggering, input handler processes user interactions, visual feedback manages UI animations, controls handle optional features, and app.js orchestrates initialization. No external dependencies, no build process, runs entirely in browser with offline capability after initial load. Audio generated using oscillators with ADSR envelope for percussive xylophone timbre. Event-driven architecture supports overlapping notes and low-latency playback."
+}
